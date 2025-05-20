@@ -32,7 +32,7 @@ C. `¬Q → ¬P`
 
 ### Question 3:
 
-*Which of the following is a tautology?*
+*Which of the following is tautology?*
 
 A. `P ∧ ¬P`
 B. `P ∨ ¬P`
