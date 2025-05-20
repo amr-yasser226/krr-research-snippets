@@ -1,116 +1,79 @@
-
-**Author:** [Your Name]
-
+---
+author: Amr Yasser
+title: Predicate Translator – Mini Project 2
 ---
 
 ## Table of Contents
 
-1. [Introduction](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#1-introduction)
-    
-2. [Problem Statement](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#2-problem-statement)
-    
-3. [Methodology](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#3-methodology)
-    
-4. [Results](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#4-results)
-    
-5. [Discussion](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#5-discussion)
-    
-6. [Conclusion](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#6-conclusion)
-    
-7. [Recommendations](https://chatgpt.com/c/6804161d-a648-8009-a1be-013472898e8f#7-recommendations)
-    
+1. [Introduction](#introduction)  
+2. [Problem Statement](#problem-statement)  
+3. [Methodology](#methodology)  
+4. [Results](#results)  
+5. [Discussion](#discussion)  
+6. [Conclusion](#conclusion)  
+7. [Recommendations](#recommendations)  
 
 ---
 
-## 1. Introduction
+## Introduction
 
-This project implements a bidirectional translator between simple English quantifier statements and first-order predicate logic. The tool parses natural-language sentences of the form “All X are Y,” “Some X are (not) Y,” and “No X are Y,” converting them into corresponding logical formulas, and vice versa.
+A bidirectional translator for simple English quantifier statements ↔ first-order predicate logic. Handles “All X are Y,” “Some X are not Y,” “No X are Y,” etc., converting back and forth.
 
-## 2. Problem Statement
+## Problem Statement
 
-Users often need to formalize or interpret statements involving universal (`∀`) and existential (`∃`) quantification. Manual translation is error‑prone. This script automates:
+Manual translation of quantifiers (`∀`, `∃`) is error-prone. Automate:
 
-- **English → Predicate Logic:** Handle quantifiers `all`, `every`, `each`, `some`, `a`, `an`, `no`, `none`, including negation.
-    
-- **Predicate Logic → English:** Support formulas in the form `∀x (is_X(x) → [¬]is_Y(x))` and `∃x (is_X(x) ∧ [¬]is_Y(x))`.
-    
+- **English → Logic:** “all/every/each X are Y,” “some/a/an X are (not) Y,” “no/none X are Y.”  
+- **Logic → English:** `∀x (is_X(x) → [¬]is_Y(x))` and `∃x (is_X(x) ∧ [¬]is_Y(x))`.
 
-The translator must correctly identify the quantifier, subject class, property, and negation to produce accurate conversions.
+## Methodology
 
-## 3. Methodology
+1. **Parse English:**  
+   - Lowercase & tokenize.  
+   - Detect quantifier (`all`, `some`, `no`).  
+   - Identify negation (`not`).  
+   - Map to predicates: `is_subject(x)`, `is_property(x)`.  
+2. **Parse Logic:**  
+   - Detect `∀x` vs `∃x`.  
+   - Split on `→` (universal) or `∧` (existential).  
+   - Extract subject/property and `¬` if present.  
+   - Reconstruct phrase.  
+3. **Testing:**  
+   | English Input                | Logic Output                                    |
+   |------------------------------|-------------------------------------------------|
+   | All dinosaurs are extinct    | `∀x (is_dinosaur(x) → is_extinct(x))`           |
+   | Some animals are endangered  | `∃x (is_animal(x) ∧ is_endangered(x))`          |
+   | No dinosaurs are alive       | `∀x (is_dinosaur(x) → ¬is_alive(x))`            |
 
-1. **Parsing English:**
-    
-    - Tokenize and lowercase input.
-        
-    - Locate quantifier and subject (`word[0]`, `word[1]`).
-        
-    - Detect `are not` vs. `are` to determine negation.
-        
-    - Map to predicate syntax: subject → `is_subject(x)`, property → `is_property(x)`.
-        
-    - Assemble:
-        
-        - Universal: `∀x (is_subject(x) → [¬]is_property(x))`.
-            
-        - Existential: `∃x (is_subject(x) ∧ [¬]is_property(x))`.
-            
-2. **Parsing Logic:**
-    
-    - Identify leading `∀x` or `∃x`.
-        
-    - Split inner formula on `→` (universal) or `∧` (existential).
-        
-    - Extract subject and property predicates, detect `¬` prefix for negation.
-        
-    - Reconstruct English phrase: e.g., “all dinosaurs are extinct” or “some animals are not endangered.”
-        
-3. **Testing:**
-    
-    - Three test cases validate both directions:
-        
-        |English Input|Logic Output|
-        |---|---|
-        |All dinosaurs are extinct|∀x (is_dinosaur(x) → is_extinct(x))|
-        |Some animals are endangered|∃x (is_animal(x) ∧ is_endangered(x))|
-        |No dinosaurs are alive|∀x (is_dinosaur(x) → ¬is_alive(x))|
-        
-    - Reverse translations compare against lowercase originals.
-        
+And reverse translations to English.
 
-## 4. Results
+## Results
 
-All predefined test cases passed as expected:
+All six predefined tests passed:
 
-|Direction|Input|Expected|Result|Pass|
-|---|---|---|---|:-:|
-|English → Logic|All dinosaurs are extinct|∀x (is_dinosaur(x) → is_extinct(x))|∀x (is_dinosaur(x) → is_extinct(x))|✅|
-||Some animals are endangered|∃x (is_animal(x) ∧ is_endangered(x))|∃x (is_animal(x) ∧ is_endangered(x))|✅|
-||No dinosaurs are alive|∀x (is_dinosaur(x) → ¬is_alive(x))|∀x (is_dinosaur(x) → ¬is_alive(x))|✅|
-|Logic → English|∀x (is_dinosaur(x) → is_extinct(x))|all dinosaurs are extinct|all dinosaurs are extinct|✅|
-||∃x (is_animal(x) ∧ is_endangered(x))|some animals are endangered|some animals are endangered|✅|
-||∀x (is_dinosaur(x) → ¬is_alive(x))|no dinosaurs are alive|no dinosaurs are alive|✅|
+| Direction        | Input                                 | Expected                                      | Result                                        | Pass |
+|------------------|---------------------------------------|-----------------------------------------------|-----------------------------------------------|:----:|
+| English → Logic  | All dinosaurs are extinct             | ∀x (is_dinosaur(x) → is_extinct(x))           | ∀x (is_dinosaur(x) → is_extinct(x))           |  ✅  |
+| …                | …                                     | …                                             | …                                             |  …   |
+| Logic → English  | ∃x (is_animal(x) ∧ is_endangered(x))  | some animals are endangered                   | some animals are endangered                   |  ✅  |
 
-## 5. Discussion
+*(Omitted duplicate rows for brevity.)*
 
-- **Robustness:** Works for standard quantifiers and simple negation but does not support compound English phrases (e.g., “not all”).
-    
-- **Limitations:** Subject and property names must be single words. Plurals handled by stripping trailing `s`, which may mis-handle irregular plurals.
-    
-- **Error Handling:** Returns informative messages for missing keywords (`are`), malformed logic, or unsupported quantifiers.
-    
+## Discussion
 
-## 6. Conclusion
+- **Robustness:** Good for single-word subjects/properties and simple negation.  
+- **Limitations:**  
+  - No support for nested/compound quantifiers.  
+  - Irregular plurals may be mis-handled.  
+- **Error handling:** Clear messages when input is malformed.
 
-The predicate translator successfully automates routine English–logic conversions for basic quantifier statements. All tests passed, demonstrating correct parsing and generation for a representative sample.
+## Conclusion
 
-## 7. Recommendations
+The translator correctly automates the basic English–logic conversions for quantifiers. All tests succeeded.
 
-- **Extend Vocabulary:** Handle multi-word subjects/properties (e.g., `large mammals`).
-    
-- **Support Complex Logic:** Incorporate nested quantifiers and additional logical connectives (`∨`, `↔`).
-    
-- **Internationalization:** Allow different natural languages by modularizing parsing rules.
-    
+## Recommendations
 
----
+- **Multi-word support:** e.g., “large mammals.”  
+- **Complex logic:** Add `∨`, `↔`, nested quantifiers.  
+- **Internationalization:** Plug in other natural languages.
+
