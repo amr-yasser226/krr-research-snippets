@@ -1,0 +1,31 @@
+digraph Fruits {
+  node [shape=circle, style=filled, fillcolor=lightgoldenrod1, fontname="Helvetica"];
+
+  // Root
+  Fruits;
+
+  // Categories
+  Citrus   -> Fruits [label="AKO"];
+  Berries  -> Fruits [label="AKO"];
+  Drupes   -> Fruits [label="AKO"];
+
+  // Citrus instances
+  Orange   -> Citrus [label="AKO"];
+  Orange   -> "peelable"     [label="has"];
+  Orange   -> "sweet taste"  [label="has"];
+  Orange   -> "orange color" [label="has"];
+
+  Lemon    -> Citrus [label="AKO"];
+  Lemon    -> "sour taste"   [label="has"];
+  Lemon    -> "yellow color" [label="has"];
+
+  // Berries instances
+  Strawberry -> Berries [label="AKO"];
+  Strawberry -> "seeds outside" [label="has"];
+  Strawberry -> "red color"     [label="has"];
+
+  // Drupes instances
+  Cherry   -> Drupes [label="AKO"];
+  Cherry   -> "stone pit"  [label="has"];
+  Cherry   -> "red color"  [label="has"];
+}

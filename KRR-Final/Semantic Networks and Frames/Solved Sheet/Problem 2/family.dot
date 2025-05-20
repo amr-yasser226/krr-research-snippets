@@ -1,0 +1,16 @@
+digraph Family {
+  node [shape=circle, style=filled, fillcolor=lightcoral, fontname="Helvetica"];
+  A; B; C; D;
+
+  A -> B [label="parent-of"];
+  A -> C [label="parent-of"];
+  B -> D [label="parent-of"];
+  C -> B [label="sibling-of"];
+
+  // Eye-color attributes
+  B -> Blue [label="eye-color"];
+  C -> Brown[label="eye-color"];
+
+  // Inheritance: D inherits from parent B
+  D -> B [label="inherits-eye-color"];
+}

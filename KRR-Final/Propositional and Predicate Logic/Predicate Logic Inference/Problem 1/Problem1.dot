@@ -1,0 +1,44 @@
+digraph ResolutionTweety {
+  // overall graph settings
+  rankdir=TB;
+  splines=polyline;      // support edge labels
+  nodesep=0.6;
+  ranksep=0.8;
+  fontname="Helvetica";
+
+  // default node style
+  node [
+    shape=rectangle
+    style="rounded,filled"
+    fillcolor="#f9f9f9"
+    color="#444444"
+    fontname="Helvetica"
+    fontsize=12
+  ];
+
+  // premises all in one rank
+  subgraph cluster_premises {
+    rank = same;
+    style = invisible;
+    P1 [label="¬Penguin(x) ∨ Bird(x)"];
+    P2 [label="Penguin(Tweety)"];
+    P3 [label="¬Bird(y) ∨ Fly(y)"];
+    P4 [label="Fly(Tweety)"];
+    P5 [label="¬Penguin(z) ∨ ¬Fly(z)"];
+  }
+
+  // derived conclusions
+  D1 [label="Bird(Tweety)"];
+  D2 [label="Fly(Tweety)"];
+  CONTRA [label="⊥", fillcolor="#ffe6e6", color="#cc0000"];
+
+  // resolution edges with inline labels
+  P1 -> D1 [xlabel="{x/Tweety}", fontsize=10];
+  P2 -> D1;
+
+  P3 -> D2 [xlabel="{y/Tweety}", fontsize=10];
+  D1 -> D2;
+
+  D2 -> CONTRA;
+  P5 -> CONTRA [xlabel="{z/Tweety}", fontsize=10];
+}

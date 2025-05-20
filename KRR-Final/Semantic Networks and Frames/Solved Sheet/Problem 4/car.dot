@@ -1,0 +1,21 @@
+digraph Car {
+  node [shape=circle, style=filled, fillcolor=lightgrey, fontname="Helvetica"];
+  Car;
+  "Body Type"   -> Car [label="aspect"];
+  "Engine Type" -> Car [label="aspect"];
+  Features      -> Car [label="aspect"];
+
+  Sedan         -> "Body Type" [label="AKO"];
+  SUV           -> "Body Type" [label="AKO"];
+  Hybrid        -> "Engine Type" [label="AKO"];
+
+  Sedan -> "4 doors"      [label="has"];
+  Sedan -> spacious       [label="is"];
+  Sedan -> "fuel-efficient"[label="is"];
+
+  SUV   -> "large size"   [label="is"];
+  SUV   -> "off-road"     [label="can"];
+  SUV   -> "high seating" [label="is"];
+
+  Hybrid-> "petrol+dsl"   [label="combines"];
+}

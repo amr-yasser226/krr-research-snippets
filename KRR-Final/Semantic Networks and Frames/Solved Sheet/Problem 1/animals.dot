@@ -1,0 +1,22 @@
+digraph Animals {
+  node [shape=circle, style=filled, fillcolor=lightblue, fontname="Helvetica"];
+  Animals;
+  Mammals -> Animals [label="AKO"];
+  Birds   -> Animals [label="AKO"];
+  Reptiles-> Animals [label="AKO"];
+
+  Dog     -> Mammals [label="AKO"];
+  Dog     -> "4 legs"       [label="has"];
+  Dog     -> bark           [label="can"];
+  Dog     -> domesticated   [label="is"];
+
+  Eagle   -> Birds   [label="AKO"];
+  Eagle   -> wings          [label="has"];
+  Eagle   -> fly            [label="can"];
+  Eagle   -> carnivorous    [label="is"];
+
+  Snake   -> Reptiles[label="AKO"];
+  Snake   -> slithers       [label="can"];
+  Snake   -> "cold-blooded" [label="is"];
+  Snake   -> "no limbs"     [label="has"];
+}

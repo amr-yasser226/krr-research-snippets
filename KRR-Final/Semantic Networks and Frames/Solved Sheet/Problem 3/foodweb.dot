@@ -1,0 +1,12 @@
+digraph FoodWeb {
+  node [shape=circle, style=filled, fillcolor=lightgreen, fontname="Helvetica"];
+  A; B; C; D; E;
+
+  A -> B [label="preys-on"];
+  A -> C [label="preys-on"];
+  B -> D [label="preys-on"];
+  C -> B [label="preys-on"];
+  D -> E [label="preys-on"];
+
+  // Energy flow arrows point from predator to prey
+}

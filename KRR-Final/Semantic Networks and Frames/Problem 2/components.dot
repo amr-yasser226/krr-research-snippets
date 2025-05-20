@@ -1,0 +1,28 @@
+digraph Components {
+  node [shape=circle, style=filled, fillcolor=lightcyan, fontname="Helvetica"];
+
+  // Root
+  Computer;
+
+  // Top‐level categories
+  Hardware -> Computer [label="AKO"];
+  Software -> Computer [label="AKO"];
+
+  // Hardware instances
+  CPU  -> Hardware [label="AKO"];
+  CPU  -> "executes instructions" [label="can"];
+  CPU  -> "GHz speed"           [label="has"];
+
+  RAM  -> Hardware [label="AKO"];
+  RAM  -> "volatile" [label="is"];
+  RAM  -> "GB size"  [label="has"];
+
+  // Software instances
+  OS   -> Software [label="AKO"];
+  OS   -> "manages hardware" [label="can"];
+  OS   -> "user interface"   [label="has"];
+
+  App  -> Software [label="AKO"];
+  App  -> "performs task"    [label="can"];
+  App  -> "installable"      [label="is"];
+}

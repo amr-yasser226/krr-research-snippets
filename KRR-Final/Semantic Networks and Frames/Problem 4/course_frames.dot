@@ -1,0 +1,45 @@
+digraph CourseFrames {
+  node [
+    shape=record
+    fontname="Helvetica"
+    style=filled
+    fillcolor=lightgreen
+  ];
+
+  // Generic Course frame
+  CourseFrame [
+    label = "{
+      Course Frame|
+      Code: <CourseCode> |
+      Title: <CourseTitle> |
+      Credits: <Credits> |
+      Instructor: <Instructor>
+    }"
+  ];
+
+  // Instance: CS101
+  Course1 [
+    label = "{
+      Course Instance: CS101|
+      Code: CS101 |
+      Title: \"Intro to Programming\" |
+      Credits: 3 |
+      Instructor: \"Dr. Amina Hassan\"
+    }"
+  ];
+
+  // Instance: MATH201
+  Course2 [
+    label = "{
+      Course Instance: MATH201|
+      Code: MATH201 |
+      Title: \"Linear Algebra\" |
+      Credits: 4 |
+      Instructor: \"Prof. Omar El‐Sayed\"
+    }"
+  ];
+
+  // Link instances to the generic frame
+  Course1 -> CourseFrame [style=dashed, label="instance-of"];
+  Course2 -> CourseFrame [style=dashed, label="instance-of"];
+}

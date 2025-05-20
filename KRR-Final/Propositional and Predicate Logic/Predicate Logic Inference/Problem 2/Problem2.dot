@@ -1,0 +1,26 @@
+// Problem2.dot
+digraph ResolutionEducated {
+  rankdir=TB;
+  node [shape=box];
+
+  // Leaves
+  Q1 [label="¬Reads(x, Book) ∨ Educated(x) ∨ Wise(x)"];
+  Q2 [label="Reads(John, Book)"];
+  Q3 [label="¬Wise(John)"];
+  Q4 [label="¬Educated(John)"];
+
+  // Derived
+  R1 [label="Educated(John) ∨ Wise(John)"];
+  R2 [label="Educated(John)"];
+  R3 [label="⊥"];
+
+  // Edges
+  Q1 -> R1;
+  Q2 -> R1;
+
+  R1 -> R2;
+  Q3 -> R2;
+
+  R2 -> R3;
+  Q4 -> R3;
+}
